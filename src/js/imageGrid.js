@@ -57,6 +57,9 @@ export default class ImageGrid {
     }
 
     resetGrid() {
+        if (this._imageGrid.length < 1) {
+            throw new Error('Image is not initialized');
+        }
         this._imageGrid.forEach(row => {
             row.fill('o');
         })
@@ -76,6 +79,9 @@ export default class ImageGrid {
     }
 
     showGrid() {
+        if (this._imageGrid.length < 1) {
+            throw new Error('Image is not initialized');
+        }
         this._imageGrid.forEach(row => console.log(row.join(' ')));
     }
 

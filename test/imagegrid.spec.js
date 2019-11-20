@@ -1,9 +1,18 @@
 import assert from 'assert';
 import ImageGrid from '../src/js/imageGrid';
 
-let imageGrid = new ImageGrid();
+let imageGrid
 
 describe('ImageGrid', function () {
+
+    this.beforeEach(() => {
+        imageGrid = new ImageGrid();
+    })
+
+    this.afterEach(() => {
+        imageGrid = null;
+    })
+
     it('test - parsing commands', () => {
         let result = true;
         try {
@@ -73,11 +82,174 @@ describe('ImageGrid', function () {
         assert.equal(imageGrid._imageGrid[1][1], 'D')
     })
 
-    it('test - parsing invalid params', () => {
+    it('test - reset grid', () => {
+        imageGrid.processCommand('I 5 5')
+        imageGrid.processCommand('C');
+        assert.equal(imageGrid._imageGrid[0][0], 'o')
+    });
+
+    it('test - vertical draw lines no params', () => {
         let result = true;
         try {
             imageGrid.processCommand('I 5 5');
             imageGrid.processCommand('V 5 5 5');
+        } catch (error) {
+            result = false;
+        }
+        assert(!result);
+    });
+
+    it('test - vertical draw lines no grid', () => {
+        let result = true;
+        try {
+            imageGrid.processCommand('V 5 5 5 C');
+        } catch (error) {
+            result = false;
+        }
+        assert(!result);
+    });
+
+    it('test - vertical draw lines invalid params', () => {
+        let result = true;
+        try {
+            imageGrid.processCommand('I 5 5');
+            imageGrid.processCommand('V C C C C');
+        } catch (error) {
+            result = false;
+        }
+        assert(!result);
+    });
+
+    it('test - error call create grid', () => {
+        let result = true;
+        try {
+            imageGrid.processCommand('I 5');
+        } catch (error) {
+            result = false;
+        }
+        assert(!result);
+    });
+
+    it('test - error call create grid invalid params', () => {
+        let result = true;
+        try {
+            imageGrid.processCommand('I A A');
+        } catch (error) {
+            result = false;
+        }
+        assert(!result);
+    });
+
+    it('test - error call reset grid', () => {
+        let result = true;
+        try {
+            imageGrid.processCommand('C');
+        } catch (error) {
+            result = false;
+        }
+        assert(!result);
+    });
+
+    it('test - horizontal draw line no grid', () => {
+        let result = true;
+        try {
+            imageGrid.processCommand('H 2 1 4 C');
+        } catch (error) {
+            result = false;
+        }
+        assert(!result);
+    });
+
+    it('test - horizontal draw line no params', () => {
+        let result = true;
+        try {
+            imageGrid.processCommand('I 5 5');
+            imageGrid.processCommand('H 2 1');
+        } catch (error) {
+            result = false;
+        }
+        assert(!result);
+    });
+
+    it('test - horizontal draw line invalid params', () => {
+        let result = true;
+        try {
+            imageGrid.processCommand('I 5 5');
+            imageGrid.processCommand('H A A A A');
+        } catch (error) {
+            result = false;
+        }
+        assert(!result);
+    });
+
+    it('test - fill region no params', () => {
+        let result = true;
+        try {
+            imageGrid.processCommand('I 5 5');
+            imageGrid.processCommand('F');
+        } catch (error) {
+            result = false;
+        }
+        assert(!result);
+    });
+
+    it('test - fill region no grid', () => {
+        let result = true;
+        try {
+            imageGrid.processCommand('F 2 2 C');
+        } catch (error) {
+            result = false;
+        }
+        assert(!result);
+    });
+
+    it('test - fill region invalid params', () => {
+        let result = true;
+        try {
+            imageGrid.processCommand('I 5 5');
+            imageGrid.processCommand('F C C C');
+        } catch (error) {
+            result = false;
+        }
+        assert(!result);
+    });
+
+    it('test - color pixel no params', () => {
+        let result = true;
+        try {
+            imageGrid.processCommand('I 5 5');
+            imageGrid.processCommand('L');
+        } catch (error) {
+            result = false;
+        }
+        assert(!result);
+    });
+
+    it('test - color pixel no grid', () => {
+        let result = true;
+        try {
+            imageGrid.processCommand('L 2 2 C');
+        } catch (error) {
+            result = false;
+        }
+        assert(!result);
+    });
+
+    it('test - color pixel invalid params', () => {
+        let result = true;
+        try {
+            imageGrid.processCommand('I 5 5');
+            imageGrid.processCommand('L C C C');
+        } catch (error) {
+            result = false;
+        }
+        assert(!result);
+    });
+
+    it('test - show grid no grid', () => {
+        let result = true;
+        try {
+            imageGrid.processCommand('S');
         } catch (error) {
             result = false;
         }
