@@ -1,4 +1,4 @@
-#Graphical Image Editor
+# Graphical Image Editor
 Graphical Image Editor simulates image editor tasks. It is implemented using ES6 and pure NodeJS.
 
 Requirements:
