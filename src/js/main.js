@@ -1,13 +1,4 @@
-import CommandLineParser from './commandLineParser';
-import ImageGrid from './imageGrid';
+import CommandLineProcessor from './commandLineProcessor';
 
-let commandLineParser = new CommandLineParser();
-let imageGrid = new ImageGrid();
-
-imageGrid.processCommand('i 5 5');
-imageGrid.processCommand('s');
-
-/*
-commandLineParser.
-commandLineParser.createGrid();
-*/
+let commandLineProcessor = new CommandLineProcessor();
+commandLineProcessor.getUserInput();

@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha --require esm",
-    "console": "node -r esm src/js/main.js"
+    "console": "node -r esm src/js/main.js",
+    "cover": "nyc --reporter=html mocha --require esm"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,7 @@
   "homepage": "https://github.com/DanielNikolov/graphical-image-editor#readme",
   "devDependencies": {
     "esm": "^3.2.25",
+    "nyc": "^13.3.0",
     "mocha": "^6.2.2",
     "readline": "^1.3.0"
   }
