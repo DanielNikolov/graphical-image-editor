@@ -1,4 +1,4 @@
 import CommandLineProcessor from './commandLineProcessor';
 
-let commandLineProcessor = new CommandLineProcessor();
+const commandLineProcessor = new CommandLineProcessor();
 commandLineProcessor.getUserInput();

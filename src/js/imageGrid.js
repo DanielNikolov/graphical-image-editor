@@ -1,8 +1,7 @@
 const numberRegex = /\d+/;
 const colorRegex = /^.{1}$/;
 const maxGridSize = 250;
-
-let operationsConfig = {
+const operationsConfig = {
     i: 'createGrid',
     c: 'resetGrid',
     l: 'colorPixel',
@@ -12,7 +11,7 @@ let operationsConfig = {
     s: 'showGrid'
 };
 
-let isValidSize = (sizeValue, maxValue) => {
+const isValidSize = (sizeValue, maxValue) => {
     if (!numberRegex.test(sizeValue)) {
         return false;
     }
@@ -20,7 +19,7 @@ let isValidSize = (sizeValue, maxValue) => {
     return (sizeValueInt > 0 && sizeValueInt <= maxValue);
 }
 
-let floodFill = (pointX, pointY, color, imageGrid) => {
+const floodFill = (pointX, pointY, color, imageGrid) => {
     if (pointX < 0 || pointX > imageGrid[0].length-1) {
         return;
     }
@@ -49,7 +48,7 @@ export default class ImageGrid {
 
     processCommand(command) {
         let tokens = command.split(/\s+/);
-        let operationConfig = operationsConfig[tokens.shift().toLowerCase()];
+        const operationConfig = operationsConfig[tokens.shift().toLowerCase()];
         if (!operationConfig) {
             throw new Error('Invalid command. Please try again.\n');
         }
@@ -98,11 +97,10 @@ export default class ImageGrid {
             !colorRegex.test(params[3])) {
             throw new Error('Invalid parameter values');
         }
-        let colX = parseInt(params[0], 10) - 1;
-        let rowA = Math.min(params[1], params[2]);
-        let rowB = Math.max(params[1], params[2]);
+        const rowA = Math.min(params[1], params[2]);
+        const rowB = Math.max(params[1], params[2]);
         for (let i = rowA-1; i < rowB; i++) {
-            this._imageGrid[i][colX] = params[3];
+            this._imageGrid[i][parseInt(params[0], 10) - 1] = params[3];
         }
     }
 
@@ -119,11 +117,10 @@ export default class ImageGrid {
             !colorRegex.test(params[3])) {
             throw new Error('Invalid parameter values');
         }
-        let row = parseInt(params[2], 10) - 1;
-        let colA = Math.min(params[0], params[1]);
-        let colB = Math.max(params[0], params[1]);
+        const colA = Math.min(params[0], params[1]);
+        const colB = Math.max(params[0], params[1]);
         for (let i = colA-1; i < colB; i++) {
-            this._imageGrid[row][i] = params[3];
+            this._imageGrid[parseInt(params[2], 10) - 1][i] = params[3];
         }
     }
 
